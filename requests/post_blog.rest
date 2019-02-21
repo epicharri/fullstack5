@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnJpIiwiaWQiOiI1YzZlNjc3OTJjYzZlMTI2YjBjNDRmNjUiLCJpYXQiOjE1NTA3Mzk1MzV9.lIisdROTZ7O8VWmDKWaTtGJRiiJYWqD7VuAFMkhI0Gg
+
+{
+    "title": "Harrin blogi",
+    "author": "Harri",
+    "url": "https://www.github.io",
+    "likes": 1000,
+    "userId": "5c6e67792cc6e126b0c44f65"
+}

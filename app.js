@@ -4,6 +4,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const middleware = require('./utils/middleware')
 
 const { tokenExtractor, errorHandler } = require('./utils/middleware')
 
@@ -15,7 +16,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 console.log('connecting to', config.MONGODB_URI)
-
+console.log('App.js:ssä otetaan yhteys mongodb_uriin: ', config.MONGODB_URI)
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log('connected to MongoDB')

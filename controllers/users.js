@@ -6,16 +6,83 @@ usersRouter.get('/', async (request, response) => {
   const users = await User
     .find({}).populate('blogs', { author: 1, title: 1, url: 1 })
 
-  response.json(users.map(u => u.toJSON()))
+  //response.json(users.map(u => u.toJSON()))
+  response.json(users)
+
 })
 
 usersRouter.post('/', async (request, response, next) => {
+  try {
+    const body = request.body
+   
+    //const blog = await Blog.findById(body.blogId)
+  
+    if (body.username.length < 4) {
+      return response.status(400).json({
+          error: 'Username is too short!'
+        })
+  }
+  if (body.password.length < 4) {
+      return response.status(400).json({
+          error: 'Password is too short!'
+        })
+  }
+  
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+    const user = new User({
+      username: body.username,
+      name: body.name,
+      passwordHash
+    })
+    
+  //user.blogs = blog.id
+    const savedUser = await user.save()
+    //blogs.users = blog.users.concat(savedUser._id)
+    //await blog.save()
+    response.json(savedUser)
+  } catch (exception) {
+    next(exception)
+  }try {
+    const body = request.body
+   
+    //const blog = await Blog.findById(body.blogId)
+  
+    if (body.username.length < 4) {
+      return response.status(400).json({
+          error: 'Username is too short!'
+        })
+  }
+  if (body.password.length < 4) {
+      return response.status(400).json({
+          error: 'Password is too short!'
+        })
+  }
+  
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+    const user = new User({
+      username: body.username,
+      name: body.name,
+      passwordHash
+    })
+    
+  //user.blogs = blog.id
+    const savedUser = await user.save()
+    //blogs.users = blog.users.concat(savedUser._id)
+    //await blog.save()
+    response.json(savedUser)
+  } catch (exception) {
+    next(exception)
+  }
+
+  /*
   try {
     const { username, password, name } = request.body
 
     if (!password || password.length<3 ) {
       return response.status(400).send({
-        error: 'pasword minimum length 3'
+        error: 'password minimum length 3'
       })
     }
 
@@ -34,6 +101,7 @@ usersRouter.post('/', async (request, response, next) => {
   } catch (exception) {
     next(exception)
   }
+  */
 })
 
 module.exports = usersRouter

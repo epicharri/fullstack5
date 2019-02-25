@@ -22,7 +22,6 @@ router.post('/', async (request, response, next) => {
   const body = request.body
   const token = getTokenFrom(request)
 
-  console.log('moi')
 
 
   try {
@@ -75,7 +74,7 @@ router.put('/:id', async (request, response) => {
   const { author, title, url, likes } = request.body
 
   const blog = {
-    author, title, url, likes,
+    author, title, url, likes
   }
 
   const updatedBlog = await Blog
@@ -85,6 +84,7 @@ router.put('/:id', async (request, response) => {
 })
 
 router.delete('/:id', async (request, response) => {
+  console.log('Tultiin router.deleteen. Blogin id on ',request.params.id)
   if (!request.token) {
     return response.status(401).json({ error: 'token missing' })
   }
